@@ -1,0 +1,29 @@
+<hr />
+<h1> {{ tutorialObject.title }} </h1>
+<h2> {{ tutorialObject.subTitle }} </h2>
+
+<p><b> {{ 2 + 2 }}</b></p>
+
+<p>String: {{ tutorialObject.firstName + " " + tutorialObject.lastName }}</p>
+
+<p><b>Binding: {{ tutorialObject.bindOutput | currency: "R": "4"}}</b></p>
+
+<ec-welcome-message></ec-welcome-message>
+<span ec-welcome-message></span>
+
+<button ng-click="timesTwo()">Multiply</button>
+
+<hr />
+<hr />
+
+<label> First Name:</label>
+<input ng-model="tutorialObject.firstName | uppercase">
+
+<hr />
+
+<label>Second Name:</label>
+<input ng-model="tutorialObject.lastName | lowercase">
+
+<hr />
+
+<a href="#/tutorialSecond">Tutorial Second Page</a>
