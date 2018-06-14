@@ -2,26 +2,21 @@
  *  Created by Ernst 05/06/2018 
  */
 
- var app = angular.module('tutorialApp', ["ngRoute", "tutorialCtrlModule"]);
+var app = angular.module('groceryListApp', []);
 
- app.config(function($routeProvider){
-    $routeProvider
+app.controller("HomeController", ["scope", function($scope) {
+    $scope.appTitle = "Grocery List";
+}]);
 
-    .when("/", {
-        templateUrl: "views/tutorial.html",
-        controller: "TutorialCtrl"
-    })
-
-    .when("/tutorialSecond", {
-        templateUrl: "views/tutorialSecond.html",
-        controller: "TutorialCtrl2"
-    })
-
-    .when("/error1", {
-        templateUrl: "views/error.html"
-    })
-
-    .otherwise({
-        redirectTo: "/error1"
-    })
- });
+app.controller("GroceryListItemsController", ["scope", function($scope) {
+    $scope.groceryItems = [
+        {itemName: 'milk', date: '2014-10-01'},
+        {itemName: 'cookies', date: '2014-10-01'},
+        {itemName: 'ice cream', date: '2014-10-02'},
+        {itemName: 'potatoes', date: '2014-10-02'},
+        {itemName: 'cereal', date: '2014-10-03'},
+        {itemName: 'bread', date: '2014-10-03'},
+        {itemName: 'eggs', date: '2014-10-04'},
+        {itemName: 'tortillas', date: '2014-10-04'}
+    ]
+}])
