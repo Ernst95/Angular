@@ -28,8 +28,10 @@ app.controller("HomeController", ["$scope", function($scope) {
     $scope.appTitle = "Grocery List";
 }]);
 
-app.controller("GroceryListItemsController", ["$scope", "$routeParams", function($scope, $routeParams) {
-    $scope.groceryItems = [
+app.service("GroceryService", function() {
+    var groceryService = {};
+
+    groceryService.groceryItems = [
         {itemName: 'milk', date: '2014-10-01'},
         {itemName: 'cookies', date: '2014-10-01'},
         {itemName: 'ice cream', date: '2014-10-02'},
@@ -38,7 +40,27 @@ app.controller("GroceryListItemsController", ["$scope", "$routeParams", function
         {itemName: 'bread', date: '2014-10-03'},
         {itemName: 'eggs', date: '2014-10-04'},
         {itemName: 'tortillas', date: '2014-10-04'}
-    ]
+    ];
+
+    groceryService.save = function(entry) {
+        groceryService.groceryItems.push(entry);
+    }
+
+    return groceryService;
+    
+});
+
+app.controller("GroceryListItemsController", ["$scope", "$routeParams", "$location", "GroceryService", function($scope, $routeParams, $location, GroceryService) {
+    
+    $scope.groceryItems = GroceryService.groceryItems;
 
     $scope.rp = "Route Parameter Value: " + $routeParams.id;
+
+    $scope.groceryItem = {id:7, completed:true, itemName:"cheese", date:new Date() }
+
+    $scope.save = function() {
+        GroceryService.save($scope.groceryItem);
+        $location.path("/");
+    }
+
 }])
