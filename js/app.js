@@ -2,13 +2,33 @@
  *  Created by Ernst 05/06/2018 
  */
 
-var app = angular.module('groceryListApp', []);
+var app = angular.module('groceryListApp', ["ngRoute"]);
 
-app.controller("HomeController", ["scope", function($scope) {
+app.config(function($routeProvider) {
+    $routeProvider
+        .when("/", 
+        {
+            templateUrl: "views/groceryList.html",
+            controller: "GroceryListItemsController"
+        })
+        .when("/addItem", {
+            templateUrl: "views/addItem.html",
+            controller: "GroceryListItemsController"
+        })
+        .when("/addItem/:id", {
+            templateUrl: "views/addItem.html",
+            controller: "GroceryListItemsController"
+        })
+        .otherwise({
+            redirectTo: "/"
+        })
+});
+
+app.controller("HomeController", ["$scope", function($scope) {
     $scope.appTitle = "Grocery List";
 }]);
 
-app.controller("GroceryListItemsController", ["scope", function($scope) {
+app.controller("GroceryListItemsController", ["$scope", "$routeParams", function($scope, $routeParams) {
     $scope.groceryItems = [
         {itemName: 'milk', date: '2014-10-01'},
         {itemName: 'cookies', date: '2014-10-01'},
@@ -19,4 +39,6 @@ app.controller("GroceryListItemsController", ["scope", function($scope) {
         {itemName: 'eggs', date: '2014-10-04'},
         {itemName: 'tortillas', date: '2014-10-04'}
     ]
+
+    $scope.rp = "Route Parameter Value: " + $routeParams.id;
 }])
