@@ -102,16 +102,23 @@ app.service("GroceryService", function($http) {
                 });
             
             groceryService.groceryItems.push(entry);
-            
+
         }
 
     };
 
     groceryService.removeItem = function(entry) {
         
-        var index = groceryService.groceryItems.indexOf(entry);
-
-        groceryService.groceryItems.splice(index, 1);
+        $http.post("data/delete_item.json", {id: entry.id})
+            .success(function(data) {
+                if(data.status == 1) {
+                    var index = groceryService.groceryItems.indexOf(entry);
+                    groceryService.groceryItems.splice(index, 1);
+                }           
+            })
+            .error(function(data, status) {
+                alert("Error detected");
+            });
 
     };
 
