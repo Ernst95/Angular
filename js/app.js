@@ -39,7 +39,7 @@ app.service("GroceryService", function($http) {
             }
         }) 
         .error(function(data, status) {
-
+            alert("Error detected");
         });
 
     groceryService.findById = function(id) {
@@ -79,7 +79,14 @@ app.service("GroceryService", function($http) {
             updatedItem.date = entry.date;
         }
         else {
-            entry.id = groceryService.getNewId();
+            $http.post("data/added_item.json", entry)
+                .success(function(data) {
+                    entry.id = data.newId;
+                })
+                .error(function(data, status) {
+                    alert("Error detected");
+                });
+            
             groceryService.groceryItems.push(entry);
         }
 
