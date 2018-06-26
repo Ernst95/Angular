@@ -84,11 +84,17 @@ app.service("GroceryService", function() {
 
     groceryService.removeItem = function(entry) {
         
-        var index = groceryService.groceryItems.indexOf(index);
+        var index = groceryService.groceryItems.indexOf(entry);
 
         groceryService.groceryItems.splice(index, 1);
 
     };
+
+    groceryService.markCompleted = function(entry) {
+
+        entry.completed = !entry.completed;
+        
+    }
 
     return groceryService;
     
@@ -100,6 +106,10 @@ app.controller("HomeController", ["$scope", "GroceryService", function($scope, G
 
     $scope.removeItem = function(entry) {
         GroceryService.removeItem(entry);
+    }
+
+    $scope.markCompleted = function(entry) {
+        GroceryService.markCompleted(entry);
     }
 
 }]);
